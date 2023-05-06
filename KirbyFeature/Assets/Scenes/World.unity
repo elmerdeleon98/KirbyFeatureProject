@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -695,6 +695,60 @@ Transform:
   m_Father: {fileID: 942100276}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &993099089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 993099091}
+  - component: {fileID: 993099090}
+  m_Layer: 0
+  m_Name: CloudSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &993099090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993099089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f04774e6cc227d41bf293922e860183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numClouds: 40
+  cloudPrefabs:
+  - {fileID: 7226307204175289855, guid: 8a7987f3670d5864cba5b1c5343fdc78, type: 3}
+  - {fileID: 69457111683728736, guid: ad976eebabe6c0549bfa3e07ef655cd0, type: 3}
+  - {fileID: 254798988102990636, guid: 694a03036b1b9c2429649872046860b5, type: 3}
+  cloudPosMin: {x: -15, y: -3, z: -5}
+  cloudPosMax: {x: 100, y: 25, z: 0}
+  cloudScaleMin: 0.5
+  cloudScaleMax: 0.9
+  cloudSpeedMult: 0.5
+  cloudInstances: []
+--- !u!4 &993099091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993099089}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1254601004
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,11 +907,11 @@ GameObject:
   - component: {fileID: 1994095028}
   - component: {fileID: 1994095027}
   - component: {fileID: 1994095026}
-  - component: {fileID: 1994095025}
   - component: {fileID: 1994095031}
+  - component: {fileID: 1994095025}
   m_Layer: 0
   m_Name: Kirby
-  m_TagString: Untagged
+  m_TagString: Kirby
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -899,6 +953,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: dff27877-a7f9-42a2-ad1a-ef4a978e68fe
     m_ActionName: Player/Eat[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 64844069-b8fd-4759-bac2-2648586fe5a4
+    m_ActionName: Player/Discard[/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -990,7 +1048,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994095023}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.23, y: -3.07, z: 0}
+  m_LocalPosition: {x: -8.23, y: -3.065, z: 0.008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 28364337}
@@ -1015,9 +1073,12 @@ MonoBehaviour:
   iceOn: 0
   metalOn: 0
   eatOn: 0
+  normalOn: 0
   isGrounded: 0
   mouth: {fileID: 28364336}
+  icePrefab: {fileID: 5602439993231823890, guid: 3dc23e582829ecd439c74f51a946f611, type: 3}
   jumpCounter: 0
+  myObject: {fileID: 1994095028}
 --- !u!1 &2107072032
 GameObject:
   m_ObjectHideFlags: 0

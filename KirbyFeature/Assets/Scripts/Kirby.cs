@@ -8,7 +8,6 @@ public class Kirby : MonoBehaviour
     public int playerHealth = 10;
     public int playerSpeed = 5;
     public float playerJumpForce = 5f;
-
     public bool iceOn;
     public bool metalOn;
     public bool eatOn;
@@ -19,9 +18,8 @@ public class Kirby : MonoBehaviour
     private Rigidbody rigidBody;
     private PlayerInputActions playerInputActions;
     public int jumpCounter = 0;
-
-
     [SerializeField] private Renderer myObject;
+    private bool isShooting = false;
 
     private void Awake()
     {
@@ -31,9 +29,11 @@ public class Kirby : MonoBehaviour
         playerInputActions.Player.Jump.performed += Jump;
         playerInputActions.Player.Eat.performed += Eat;
         playerInputActions.Player.Discard.performed += Discard;
-        playerInputActions.Player.Shoot.performed += Shoot;
+        playerInputActions.Player.Shoot.started += StartShoot;
+        playerInputActions.Player.Shoot.canceled += StopShoot;
         mouth.SetActive(false);
     }
+
     private void Start()
     {
         myObject = GetComponent<Renderer>();
@@ -71,18 +71,32 @@ public class Kirby : MonoBehaviour
         }
     }
 
-    public void Shoot(InputAction.CallbackContext shoot)
+    public void StartShoot(InputAction.CallbackContext context)
     {
-        if (shoot.performed)
+        if (iceOn==true)
+        {
+            isShooting = true;
+            StartCoroutine(ShootIce());
+        }
+    }
+
+    public void StopShoot(InputAction.CallbackContext context)
+    {
+        isShooting = false;
+    }
+
+    private IEnumerator ShootIce()
+    {
+        while (isShooting)
         {
             Instantiate(icePrefab, mouth.transform.position, Quaternion.identity);
-
+            yield return new WaitForSeconds(0.1f); // add a delay of 0.5 seconds
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag=="Metalun")
+        if (collision.gameObject.tag == "Metalun")
         {
             if (normalOn == true)
             {
@@ -113,10 +127,7 @@ public class Kirby : MonoBehaviour
                 collision.gameObject.SetActive(false);
             }
         }
-
-   
     }
-
 
     private void metalPower()
     {

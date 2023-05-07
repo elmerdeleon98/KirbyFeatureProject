@@ -9,6 +9,7 @@ TagManager:
   - Metalun
   - iceAttack
   - Kirby
+  - test
   layers:
   - Default
   - TransparentFX

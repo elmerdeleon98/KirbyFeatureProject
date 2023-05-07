@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class EnemyParent : MonoBehaviour
 {
-    public GameObject leftPoint, rightPoint;
+    public GameObject leftPoint, rightPoint, iceCube;
     private Vector3 leftPos, rightPos;
     public int enemySpeed;
     public bool goingLeft;
+    public bool isFrozen;
+    private bool iceCubeInstantiated;
 
     public int enemyHealth;
 
@@ -19,31 +21,53 @@ public class EnemyParent : MonoBehaviour
 
     private void Move()
     {
-        if (goingLeft)
+        if (!isFrozen)
         {
-            if (transform.position.x <= leftPos.x)
+            if (goingLeft)
             {
-                goingLeft = false;
+                if (transform.position.x <= leftPos.x)
+                {
+                    goingLeft = false;
+                }
+                else
+                {
+                    transform.position += Vector3.left * Time.deltaTime * enemySpeed;
+                }
             }
             else
             {
-                transform.position += Vector3.left * Time.deltaTime * enemySpeed;
-            }
-        }
-        else
-        {
-            if (transform.position.x >= rightPos.x)
-            {
-                goingLeft = true;
-            }
-            else
-            {
-                transform.position += Vector3.right * Time.deltaTime * enemySpeed;
+                if (transform.position.x >= rightPos.x)
+                {
+                    goingLeft = true;
+                }
+                else
+                {
+                    transform.position += Vector3.right * Time.deltaTime * enemySpeed;
+                }
             }
         }
     }
+
     private void Update()
     {
         Move();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("iceAttack") && !iceCubeInstantiated)
+        {
+            isFrozen = true;
+            iceCubeInstantiated = true;
+            Instantiate(iceCube, this.transform.position, Quaternion.identity);
+            StartCoroutine(Frozen());
+        }
+    }
+
+    private IEnumerator Frozen()
+    {
+        yield return new WaitForSeconds(3);
+        isFrozen = false;
+        iceCubeInstantiated = false;
     }
 }

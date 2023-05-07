@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -149,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28364336}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.07, y: -0.01, z: -0.09}
+  m_LocalPosition: {x: 0.068, y: -0.01, z: 0}
   m_LocalScale: {x: 0.8482538, y: 0.8611244, z: 0.9344781}
   m_Children: []
   m_Father: {fileID: 1994095030}
@@ -561,8 +561,9 @@ GameObject:
   - component: {fileID: 942100276}
   - component: {fileID: 942100275}
   - component: {fileID: 942100274}
-  - component: {fileID: 942100273}
   - component: {fileID: 942100272}
+  - component: {fileID: 942100277}
+  - component: {fileID: 942100278}
   m_Layer: 0
   m_Name: Metalun
   m_TagString: Metalun
@@ -584,22 +585,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftPoint: {fileID: 964010076}
   rightPoint: {fileID: 1611434886}
+  iceCube: {fileID: 7014211614225360049, guid: e6fafbb1a92604be6ab19dfa9064a01e, type: 3}
   enemySpeed: 2
   goingLeft: 0
+  isFrozen: 0
   enemyHealth: 0
---- !u!65 &942100273
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942100271}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &942100274
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -665,6 +655,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &942100277
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942100271}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &942100278
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942100271}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &964010076
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,8 +877,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftPoint: {fileID: 124023072}
   rightPoint: {fileID: 359645607}
+  iceCube: {fileID: 7014211614225360049, guid: e6fafbb1a92604be6ab19dfa9064a01e, type: 3}
   enemySpeed: 5
   goingLeft: 0
+  isFrozen: 0
   enemyHealth: 0
 --- !u!1 &1611434886
 GameObject:
@@ -957,6 +975,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 64844069-b8fd-4759-bac2-2648586fe5a4
     m_ActionName: Player/Discard[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a95444fd-5f4a-4fec-ae92-70000377be63
+    m_ActionName: Player/Shoot[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

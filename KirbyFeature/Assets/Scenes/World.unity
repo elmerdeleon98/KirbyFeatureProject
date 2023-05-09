@@ -585,7 +585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftPoint: {fileID: 964010076}
   rightPoint: {fileID: 1611434886}
-  iceCube: {fileID: 7014211614225360049, guid: e6fafbb1a92604be6ab19dfa9064a01e, type: 3}
+  iceCubePrefab: {fileID: 7014211614225360049, guid: e6fafbb1a92604be6ab19dfa9064a01e, type: 3}
   enemySpeed: 2
   goingLeft: 0
   isFrozen: 0
@@ -877,7 +877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftPoint: {fileID: 124023072}
   rightPoint: {fileID: 359645607}
-  iceCube: {fileID: 7014211614225360049, guid: e6fafbb1a92604be6ab19dfa9064a01e, type: 3}
+  iceCubePrefab: {fileID: 7014211614225360049, guid: e6fafbb1a92604be6ab19dfa9064a01e, type: 3}
   enemySpeed: 5
   goingLeft: 0
   isFrozen: 0

@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class EnemyParent : MonoBehaviour
 {
-    public GameObject leftPoint, rightPoint, iceCube;
+    public GameObject leftPoint, rightPoint, iceCubePrefab;
     private Vector3 leftPos, rightPos;
     public int enemySpeed;
     public bool goingLeft;
     public bool isFrozen;
-    private bool iceCubeInstantiated;
 
     public int enemyHealth;
+
+    private GameObject iceCube;
 
     public void Start()
     {
@@ -55,11 +56,10 @@ public class EnemyParent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("iceAttack") && !iceCubeInstantiated)
+        if (other.CompareTag("iceAttack") && !isFrozen && iceCube == null)
         {
             isFrozen = true;
-            iceCubeInstantiated = true;
-            Instantiate(iceCube, this.transform.position, Quaternion.identity);
+            iceCube = Instantiate(iceCubePrefab, transform.position, Quaternion.identity);
             StartCoroutine(Frozen());
         }
     }
@@ -68,6 +68,7 @@ public class EnemyParent : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         isFrozen = false;
-        iceCubeInstantiated = false;
+        Destroy(iceCube);
+        iceCube = null;
     }
 }

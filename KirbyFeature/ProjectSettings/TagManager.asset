@@ -10,6 +10,8 @@ TagManager:
   - iceAttack
   - Kirby
   - test
+  - IceCube
+  - eatAttack
   layers:
   - Default
   - TransparentFX

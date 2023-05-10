@@ -8,29 +8,36 @@ public class Kirby : MonoBehaviour
     public int playerHealth = 10;
     public int playerSpeed = 5;
     public float playerJumpForce = 5f;
+    public int jumpCounter = 0;
+
     public bool iceOn;
     public bool metalOn;
     public bool eatOn;
     public bool normalOn;
     public bool isGrounded;
-    public GameObject mouth, icePrefab;
+    private bool isShooting = false;
+    private bool isEating = false;
+
+    public GameObject mouth, icePrefab, eatPrefab;
 
     private Rigidbody rigidBody;
     private PlayerInputActions playerInputActions;
-    public int jumpCounter = 0;
+
     [SerializeField] private Renderer myObject;
-    private bool isShooting = false;
 
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
         playerInputActions.Enable();
         rigidBody = GetComponent<Rigidbody>();
+
         playerInputActions.Player.Jump.performed += Jump;
-        playerInputActions.Player.Eat.performed += Eat;
+        playerInputActions.Player.Eat.started += StartEat;
+        playerInputActions.Player.Eat.canceled += StopEat;
         playerInputActions.Player.Discard.performed += Discard;
         playerInputActions.Player.Shoot.started += StartShoot;
         playerInputActions.Player.Shoot.canceled += StopShoot;
+
         mouth.SetActive(false);
     }
 
@@ -55,12 +62,15 @@ public class Kirby : MonoBehaviour
         }
     }
 
-    public void Eat(InputAction.CallbackContext eat)
+    public void StartEat(InputAction.CallbackContext eat)
     {
-        if (isActiveAndEnabled == true)
-        {
+            isEating = true;
+            StartCoroutine(kirbyEat());
+    }
 
-        }
+    public void StopEat(InputAction.CallbackContext eat)
+    {
+        isEating = false;
     }
 
     public void Discard(InputAction.CallbackContext discard)
@@ -94,6 +104,15 @@ public class Kirby : MonoBehaviour
         }
     }
 
+    private IEnumerator kirbyEat()
+    {
+        while (isEating)
+        {
+            Instantiate(eatPrefab, mouth.transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.1f); // add a delay of 0.5 seconds
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Metalun")
@@ -101,12 +120,12 @@ public class Kirby : MonoBehaviour
             if (normalOn == true)
             {
                 playerHealth--;
-                metalPower();
             }
             if (metalOn == true)
             {
                 collision.gameObject.SetActive(false);
             }
+
         }
 
         if (collision.gameObject.CompareTag("Floor"))
@@ -120,7 +139,6 @@ public class Kirby : MonoBehaviour
             if (normalOn == true)
             {
                 playerHealth--;
-                icePower();
             }
             if (metalOn == true)
             {
@@ -129,7 +147,7 @@ public class Kirby : MonoBehaviour
         }
     }
 
-    private void metalPower()
+    public void metalPower()
     {
         myObject.material.color = Color.gray;
         playerSpeed = 12;
@@ -140,7 +158,7 @@ public class Kirby : MonoBehaviour
         iceOn = false;
     }
 
-    private void normalPower()
+    public void normalPower()
     {
         myObject.material.color = Color.magenta;
         playerSpeed = 35;
@@ -151,7 +169,7 @@ public class Kirby : MonoBehaviour
         normalOn = true;
     }
 
-    private void icePower()
+    public void icePower()
     {
         myObject.material.color = Color.blue;
         playerSpeed = 35;

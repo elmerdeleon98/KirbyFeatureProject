@@ -5,18 +5,23 @@ using UnityEngine;
 public class EnemyParent : MonoBehaviour
 {
     public GameObject leftPoint, rightPoint, iceCube;
+
     private Vector3 leftPos, rightPos;
     public int enemySpeed;
+    public int enemyHealth;
+
     public bool goingLeft;
     public bool isFrozen;
-    private bool iceCubeInstantiated;
+    public bool iceCubeInstantiated;
 
-    public int enemyHealth;
+
+    private Kirby playerK;
 
     public void Start()
     {
         leftPos = leftPoint.transform.position;
         rightPos = rightPoint.transform.position;
+        playerK = GetComponent<Kirby>();
     }
 
     private void Move()
@@ -51,23 +56,5 @@ public class EnemyParent : MonoBehaviour
     private void Update()
     {
         Move();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("iceAttack") && !iceCubeInstantiated)
-        {
-            isFrozen = true;
-            iceCubeInstantiated = true;
-            Instantiate(iceCube, this.transform.position, Quaternion.identity);
-            StartCoroutine(Frozen());
-        }
-    }
-
-    private IEnumerator Frozen()
-    {
-        yield return new WaitForSeconds(3);
-        isFrozen = false;
-        iceCubeInstantiated = false;
     }
 }

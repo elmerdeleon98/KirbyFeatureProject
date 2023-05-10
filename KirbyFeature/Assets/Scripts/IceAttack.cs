@@ -19,7 +19,7 @@ public class IceAttack : MonoBehaviour
         direction.x = 1f;
         transform.position += direction * shotSpeed * Time.deltaTime;
 
-
+        //destroys the instantiated attack if it goes far from kirby
         float distanceFromKirby = Mathf.Abs(transform.position.x - Kirby.transform.position.x);
         if (distanceFromKirby > 2.5f)
         {

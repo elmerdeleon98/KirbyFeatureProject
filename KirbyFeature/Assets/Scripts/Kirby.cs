@@ -31,6 +31,7 @@ public class Kirby : MonoBehaviour
         playerInputActions.Enable();
         rigidBody = GetComponent<Rigidbody>();
 
+        //will initialize all of the input actions
         playerInputActions.Player.Jump.performed += Jump;
         playerInputActions.Player.Eat.started += StartEat;
         playerInputActions.Player.Eat.canceled += StopEat;
@@ -62,17 +63,20 @@ public class Kirby : MonoBehaviour
         }
     }
 
+    //when E is clicked, kirby will eat
     public void StartEat(InputAction.CallbackContext eat)
     {
             isEating = true;
             StartCoroutine(kirbyEat());
     }
 
+    //when E is let go off, kirby stops eating
     public void StopEat(InputAction.CallbackContext eat)
     {
         isEating = false;
     }
 
+    //will discard current power amd return back to normal
     public void Discard(InputAction.CallbackContext discard)
     {
         if (discard.performed)
@@ -81,6 +85,7 @@ public class Kirby : MonoBehaviour
         }
     }
 
+    //when mouse is clicked it will shoot ice only if ice power is held
     public void StartShoot(InputAction.CallbackContext context)
     {
         if (iceOn==true)
@@ -90,6 +95,7 @@ public class Kirby : MonoBehaviour
         }
     }
 
+    //when mouse is let go, shooting stops
     public void StopShoot(InputAction.CallbackContext context)
     {
         isShooting = false;
@@ -99,8 +105,9 @@ public class Kirby : MonoBehaviour
     {
         while (isShooting)
         {
+            //makes the Iceprefab every 0.1 of a second.
             Instantiate(icePrefab, mouth.transform.position, Quaternion.identity);
-            yield return new WaitForSeconds(0.1f); // add a delay of 0.5 seconds
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -108,11 +115,13 @@ public class Kirby : MonoBehaviour
     {
         while (isEating)
         {
+            //makes the Eatprefab every 0.1 of a second.
             Instantiate(eatPrefab, mouth.transform.position, Quaternion.identity);
-            yield return new WaitForSeconds(0.1f); // add a delay of 0.5 seconds
+            yield return new WaitForSeconds(0.1f); 
         }
     }
 
+    //kirby collison with each enemy:
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Metalun")
@@ -147,6 +156,7 @@ public class Kirby : MonoBehaviour
         }
     }
 
+    //will change speed, health, color, and jump force stats per power
     public void metalPower()
     {
         myObject.material.color = Color.gray;

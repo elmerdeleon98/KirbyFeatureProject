@@ -13,6 +13,7 @@ public class MetalunEnemy : EnemyParent
 
     private void OnTriggerEnter(Collider other)
     {
+        //if ice attack hits enemy and there is no icecube made, freeze enemy and make icecube
         if (other.CompareTag("iceAttack") && !iceCubeInstantiated)
         {
             isFrozen = true;
@@ -22,7 +23,7 @@ public class MetalunEnemy : EnemyParent
         }
         else if (other.CompareTag("Kirby"))
         {
-            // Disable the ice cube
+            // Disables the ice cube
             if (iceCubeInstantiated)
             {
                 iceCubeInstantiated = false;
@@ -32,6 +33,7 @@ public class MetalunEnemy : EnemyParent
 
         }
 
+        //if eat hits enemy 
         if (other.CompareTag("eatAttack"))
         {
             this.gameObject.SetActive(false);
@@ -40,6 +42,7 @@ public class MetalunEnemy : EnemyParent
 
     }
 
+    //freezes enemies for 3 seconds then unfreezes 
     private IEnumerator Frozen(GameObject ice)
     {
         yield return new WaitForSeconds(3);

@@ -24,6 +24,7 @@ public class EnemyParent : MonoBehaviour
         playerK = GetComponent<Kirby>();
     }
 
+    //will move the enemies from left to right
     private void Move()
     {
         if (!isFrozen)

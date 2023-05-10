@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PenguinEnemy : EnemyParent
 {
+    //same code as metalun but for penguin
     private Kirby kirby;
 
     private void Awake()
@@ -22,7 +23,7 @@ public class PenguinEnemy : EnemyParent
         }
         else if (other.CompareTag("Kirby"))
         {
-            // Disable the ice cube
+           
             if (iceCubeInstantiated)
             {
                 iceCubeInstantiated = false;
